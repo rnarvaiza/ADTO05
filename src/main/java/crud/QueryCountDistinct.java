@@ -26,16 +26,29 @@ public class QueryCountDistinct {
             col = DatabaseManager.getCollection(Conexion.URI + Conexion.COLLECTION, Conexion.USERNAME, Conexion.PASSWORD);
             XPathQueryService xpqs = (XPathQueryService) col.getService("XPathQueryService", "1.0");
             xpqs.setProperty("indent", "yes");
-            ResourceSet result = xpqs.query("distinct-values(//prestamos/prestamo/Libro)");
+            ResourceSet result = xpqs.query("distinct-values(//prestamos/prestamo/libro)");
             ResourceIterator i = result.getIterator();
             Resource res = null;
             while (i.hasMoreResources()) {
                 res = i.nextResource();
-                result = xpqs.query("count(//prestamos/prestamo/Libro[. = " + res.getContent() + "])");
+                result = xpqs.query("count(//prestamos/prestamo/libro[. = " + res.getContent() + "])");
                 ResourceIterator iteratorCounter = result.getIterator();
                 Resource counter = iteratorCounter.nextResource();
                 System.out.println("El Libro " + res.getContent() + ", se ha prestado: " + counter.getContent() + " veces");
             }
+
+
+            /*
+            ResourceSet result = xpqs.query("for $a in distinct-values( //prestamo/libro)  let $c:= count(for $b in /prestamos/prestamo/libro where $b=$a return $b) return <prestamo> <libro> {$a}</libro><veces>{$c}</veces></prestamo>" );
+            ResourceIterator i = result.getIterator();
+            Resource res = null;
+            while (i.hasMoreResources()) {
+                res = i.nextResource();
+                System.out.println(res.getContent());
+
+            }
+
+             */
         } finally {
             if (col != null) {
                 try {

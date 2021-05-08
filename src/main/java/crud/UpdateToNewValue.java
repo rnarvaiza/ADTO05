@@ -25,7 +25,8 @@ public class UpdateToNewValue {
             col = DatabaseManager.getCollection(Conexion.URI + Conexion.COLLECTION, Conexion.USERNAME, Conexion.PASSWORD);
             XPathQueryService xpqs = (XPathQueryService) col.getService("XPathQueryService", "1.0");
             xpqs.setProperty("indent", "yes");
-            ResourceSet result = xpqs.query("update value //libros/Libro[id = 7]/prestado with 'valido'");
+            ResourceSet result = xpqs.query("update value //libros/libro[id = 7]/prestado with 'invalido'");
+
 
         } finally {
             if (col != null) {

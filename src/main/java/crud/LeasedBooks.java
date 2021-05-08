@@ -28,14 +28,14 @@ public class LeasedBooks {
             col = DatabaseManager.getCollection(Conexion.URI + Conexion.COLLECTION, Conexion.USERNAME, Conexion.PASSWORD);
             XPathQueryService xpqs = (XPathQueryService) col.getService("XPathQueryService", "1.0");
             xpqs.setProperty("indent", "yes");
-            ResourceSet result = xpqs.query("/libros/Libro");
+            ResourceSet result = xpqs.query("/libros/libro");
             ResourceIterator i = result.getIterator();
             Resource res = null;
             int j =1;
             while (i.hasMoreResources()) {
                 res = i.nextResource();
                 System.out.println(res.getContent());
-                result = xpqs.query("update insert <prestado>" + getBooleanLeased() + "</prestado> into /libros/Libro[position()= " + j +"]");
+                result = xpqs.query("update insert <prestado>" + getBooleanLeased() + "</prestado> into /libros/libro[position()= " + j +"]");
                 j++;
             }
         } finally {

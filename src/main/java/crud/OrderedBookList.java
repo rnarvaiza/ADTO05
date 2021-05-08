@@ -23,18 +23,21 @@ public class OrderedBookList {
 
         Collection col = null;
 
+        /**
+         * @// TODO: 4/27/2021  convert to pojo and iterate through java 
+         */
         ////Libro[publicacion > 2000]/id
         try {
             col = DatabaseManager.getCollection(Conexion.URI + Conexion.COLLECTION, Conexion.USERNAME, Conexion.PASSWORD);
             XPathQueryService xpqs = (XPathQueryService) col.getService("XPathQueryService", "1.0");
             xpqs.setProperty("indent", "yes");
-            ResourceSet result = xpqs.query("distinct-values(//Libro[publicacion > 2000]/id)");
+            ResourceSet result = xpqs.query("distinct-values(//libro[publicacion > 2000]/id)");
             ResourceIterator i = result.getIterator();
             Resource res = null;
             while (i.hasMoreResources()) {
                 res = i.nextResource();
                 System.out.println(res.getContent());
-                result = xpqs.query("count(//prestamo/Libro[. = " + res.getContent() + "])");
+                result = xpqs.query("count(//prestamo/libro[. = " + res.getContent() + "])");
                 ResourceIterator iteratorCounter = result.getIterator();
                 Resource counter = iteratorCounter.nextResource();
                 System.out.println("El Libro " + res.getContent() + ", se ha prestado: " + counter.getContent() + " veces");

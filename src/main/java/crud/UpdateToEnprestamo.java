@@ -30,7 +30,7 @@ public class UpdateToEnprestamo {
             Resource res = null;
             while (i.hasMoreResources()) {
                 res = i.nextResource();
-                ResourceSet result1 =xpqs.query("update value //Libro/prestado with 'enprestamo'");
+                ResourceSet result1 =xpqs.query("update value //libro/prestado with 'enprestamo'");
             }
         } finally {
             if (col != null) {

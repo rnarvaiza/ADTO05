@@ -46,11 +46,11 @@ public class DeleteBook {
                 prestamos = (Prestamos) jaxbUnmarshaller.unmarshal(new StringReader(xmlStr));
                 Date date1 = Utils.returnDateFromString("01-01-2005");
                 Date date2;
-                String selectedID = "0";
+                final String selectedID = "4";
                 for (int k =1; k<prestamos.getPrestamo().size(); k++){
                     date2 = Utils.returnDateFromString(prestamos.getPrestamo().get(k).getFechaprestamo());
                     if(date2.before(date1)){
-                        selectedID = prestamos.getPrestamo().get(k).getLibro();
+                        //selectedID = prestamos.getPrestamo().get(k).getLibro();
                     }
                 }
                 ResourceSet result1 = xpqs.query("update delete //prestamos/prestamo[libro = " + selectedID + "]");
